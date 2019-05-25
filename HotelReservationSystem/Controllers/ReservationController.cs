@@ -8,7 +8,7 @@ namespace HotelReservationSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ReservationController : ControllerBase
     {
         // GET api/values
         [HttpGet]
