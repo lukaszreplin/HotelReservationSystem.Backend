@@ -15,5 +15,15 @@ namespace HotelReservationSystem.Services
         {
             _repository = repository;
         }
+
+        public async Task Add(Room model)
+        {
+            await _repository.InsertOne(model);
+        }
+
+        public async Task<List<Room>> GetAll()
+        {
+            return await _repository.GetAll();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,5 +11,9 @@ namespace HotelReservationSystem.Contracts
         Task InsertOne(T model);
 
         Task InsertMany(IEnumerable<T> model);
+
+        Task<List<T>> GetAll();
+
+        Task Get(FilterDefinition<T> filter);
     }
 }

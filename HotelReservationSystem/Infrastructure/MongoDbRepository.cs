@@ -34,5 +34,17 @@ namespace HotelReservationSystem.Infrastructure
             return (typeof(T).GetCustomAttributes(typeof(BsonCollectionAttribute), true).FirstOrDefault()
                 as BsonCollectionAttribute).CollectionName;
         }
+
+        public async Task<List<T>> GetAll()
+        {
+            var collectionName = GetCollectionName();
+            var collection = Database.GetCollection<T>(collectionName);
+            return await collection.Find(_ => true).ToListAsync();
+        }
+
+        public Task Get(FilterDefinition<T> filter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
