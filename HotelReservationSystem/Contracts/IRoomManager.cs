@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelReservationSystem.Contracts
 {
-    public interface IReservationManager
+    public interface IRoomManager
     {
     }
 }

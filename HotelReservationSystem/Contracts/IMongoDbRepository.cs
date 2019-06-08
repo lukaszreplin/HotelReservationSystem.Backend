@@ -7,5 +7,8 @@ namespace HotelReservationSystem.Contracts
 {
     public interface IMongoDbRepository<T> where T : class
     {
+        Task InsertOne(T model);
+
+        Task InsertMany(IEnumerable<T> model);
     }
 }

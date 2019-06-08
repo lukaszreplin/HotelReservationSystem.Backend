@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace HotelReservationSystem.Services
 {
-    public class ReservationManager : IReservationManager
+    public class RoomManager : IRoomManager
     {
-        private readonly IMongoDbRepository<Reservation> _repository;
+        private readonly IMongoDbRepository<Room> _repository;
 
-        public ReservationManager(IMongoDbRepository<Reservation> repository)
+        public RoomManager(IMongoDbRepository<Room> repository)
         {
             _repository = repository;
         }
-
-
     }
 }

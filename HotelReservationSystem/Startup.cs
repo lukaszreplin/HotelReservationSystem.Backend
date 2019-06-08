@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotelReservationSystem.Contracts;
+using HotelReservationSystem.Infrastructure;
+using HotelReservationSystem.Models;
+using HotelReservationSystem.ServiceCollectionExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace HotelReservationSystem
 {
@@ -26,6 +31,13 @@ namespace HotelReservationSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton(new MongoClient("mongodb://localhost:27017"));
+
+            services.AddRepository();
+
+            services.AddService();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
