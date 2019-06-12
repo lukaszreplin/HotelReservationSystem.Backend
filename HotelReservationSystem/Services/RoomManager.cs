@@ -1,5 +1,7 @@
 ﻿using HotelReservationSystem.Contracts;
 using HotelReservationSystem.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,11 @@ namespace HotelReservationSystem.Services
         public async Task<List<Room>> GetAll()
         {
             return await _repository.GetAll();
+        }
+
+        public async Task<Room> GetRoom(string id)
+        {
+            return await _repository.GetByCondition(Builders<Room>.Filter.Eq("_id", id));
         }
     }
 }

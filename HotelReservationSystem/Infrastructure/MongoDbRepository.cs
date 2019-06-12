@@ -1,9 +1,12 @@
 ﻿using HotelReservationSystem.Contracts;
 using HotelReservationSystem.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace HotelReservationSystem.Infrastructure
@@ -42,9 +45,11 @@ namespace HotelReservationSystem.Infrastructure
             return await collection.Find(_ => true).ToListAsync();
         }
 
-        public Task Get(FilterDefinition<T> filter)
+        public async Task<T> GetByCondition(FilterDefinition<T> filterDefinition)
         {
-            throw new NotImplementedException();
+            var collectionName = GetCollectionName();
+            var collection = Database.GetCollection<T>(collectionName);
+            return await collection.Find(filterDefinition).SingleOrDefaultAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Identity.MongoDB;
 using HotelReservationSystem.Contracts;
 using HotelReservationSystem.Infrastructure;
 using HotelReservationSystem.Models;
@@ -9,6 +10,7 @@ using HotelReservationSystem.ServiceCollectionExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +35,14 @@ namespace HotelReservationSystem
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddIdentity<ApplicationUser, MongoIdentityRole>()
+                .AddDefaultTokenProviders();
+            services
+                .Configure<MongoDBOption>(Configuration.GetSection("MongoDBOption"))
+                .AddMongoDatabase()
+                .AddMongoDbContext<ApplicationUser, MongoIdentityRole>()
+                .AddMongoStore<ApplicationUser, MongoIdentityRole>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Hotel Reservation System API", Version = "v1" });
@@ -56,6 +66,7 @@ namespace HotelReservationSystem
             {
                 app.UseHsts();
             }
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseSwagger();
 

@@ -18,5 +18,8 @@ namespace HotelReservationSystem.Models
 
         [BsonElement("number")]
         public string Number { get; set; }
+
+        [BsonElement("floor")]
+        public string Floor { get; set; }
     }
 }

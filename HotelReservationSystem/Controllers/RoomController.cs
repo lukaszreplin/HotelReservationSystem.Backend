@@ -20,8 +20,6 @@ namespace HotelReservationSystem.Controllers
             _roomManager = roomManager;
         }
 
-
-
         // GET: api/Room
         [HttpGet]
         public async Task<List<Room>> Get()
@@ -31,9 +29,9 @@ namespace HotelReservationSystem.Controllers
 
         // GET: api/Room/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<Room> Get(string id)
         {
-            return "value";
+            return await _roomManager.GetRoom(id);
         }
 
         // POST: api/Room
@@ -45,13 +43,13 @@ namespace HotelReservationSystem.Controllers
 
         // PUT: api/Room/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] Room model)
         {
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
         }
     }

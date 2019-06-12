@@ -11,5 +11,7 @@ namespace HotelReservationSystem.Contracts
         Task<List<Room>> GetAll();
 
         Task Add(Room model);
+
+        Task<Room> GetRoom(string id);
     }
 }
