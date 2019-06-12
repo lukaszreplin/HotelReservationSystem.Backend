@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HotelReservationSystem.Contracts;
 using HotelReservationSystem.Models;
+using HotelReservationSystem.Models.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace HotelReservationSystem.Controllers
 
         // GET: api/Room
         [HttpGet]
-        public async Task<List<Room>> Get()
+        public async Task<DataResult<List<Room>>> Get()
         {
             return await _roomManager.GetAll();
         }

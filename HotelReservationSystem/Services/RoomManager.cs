@@ -1,5 +1,6 @@
 ﻿using HotelReservationSystem.Contracts;
 using HotelReservationSystem.Models;
+using HotelReservationSystem.Models.Common;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -23,9 +24,9 @@ namespace HotelReservationSystem.Services
             await _repository.InsertOne(model);
         }
 
-        public async Task<List<Room>> GetAll()
+        public async Task<DataResult<List<Room>>> GetAll()
         {
-            return await _repository.GetAll();
+            return DataResultBuilder.Success(await _repository.GetAll());
         }
 
         public async Task<Room> GetRoom(string id)
