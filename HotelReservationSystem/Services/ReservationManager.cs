@@ -20,6 +20,15 @@ namespace HotelReservationSystem.Services
 
         public async Task<DataResult> Add(Reservation model)
         {
+            var existsReservations = await _repository.Search(Builders<Reservation>.Filter.And(
+                Builders<Reservation>.Filter.Eq("room.number", model.Room.Number),
+                Builders<Reservation>.Filter.Or(Builders<Reservation>.Filter.Gte("from", model.From),
+                Builders<Reservation>.Filter.Gte("to", model.To))
+                ));
+            if (existsReservations.Count > 0)
+            {
+                return DataResultBuilder.Failed("W tym okresie ten pokój jest zajęty!");
+            }
             await _repository.InsertOne(model);
             return DataResultBuilder.Success();
         }
