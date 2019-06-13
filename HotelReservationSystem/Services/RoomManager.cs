@@ -19,9 +19,10 @@ namespace HotelReservationSystem.Services
             _repository = repository;
         }
 
-        public async Task Add(Room model)
+        public async Task<DataResult> Add(Room model)
         {
             await _repository.InsertOne(model);
+            return DataResultBuilder.Success();
         }
 
         public async Task<DataResult<List<Room>>> GetAll()
@@ -29,9 +30,24 @@ namespace HotelReservationSystem.Services
             return DataResultBuilder.Success(await _repository.GetAll());
         }
 
-        public async Task<Room> GetRoom(string id)
+        public async Task<DataResult<Room>> GetRoom(string id)
         {
-            return await _repository.GetByCondition(Builders<Room>.Filter.Eq("_id", id));
+            return DataResultBuilder.Success(await _repository.GetByCondition(Builders<Room>.Filter.Eq("_id", id)));
+        }
+
+        public async Task<DataResult> DeleteRoom(string roomId)
+        {
+            await _repository.Remove(Builders<Room>.Filter.Eq("_id", roomId));
+            return DataResultBuilder.Success();
+        }
+
+        public async Task<DataResult> EditRoom(string id, Room model)
+        {
+            await _repository.Edit(Builders<Room>.Filter.Eq("_id", id), 
+                Builders<Room>.Update
+                .Set("number", model.Number)
+                .Set("floor", model.Floor));
+            return DataResultBuilder.Success();
         }
     }
 }

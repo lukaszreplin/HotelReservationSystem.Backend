@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotelReservationSystem.Contracts;
+using HotelReservationSystem.Models;
+using HotelReservationSystem.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationSystem.Controllers
@@ -10,36 +13,46 @@ namespace HotelReservationSystem.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        // GET api/values
+        private readonly IReservationManager _reservationManager;
+
+        public ReservationController(IReservationManager reservationManager)
+        {
+            _reservationManager = reservationManager;
+        }
+
+        // GET: api/Reservation
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<DataResult<List<Reservation>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _reservationManager.GetAll();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // GET: api/Reservation/5
+        [HttpGet("{id}", Name = "GetReservation")]
+        public async Task<DataResult<Reservation>> Get(string id)
         {
-            return "value";
+            return await _reservationManager.Get(id);
         }
 
-        // POST api/values
+        // POST: api/Reservation
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<DataResult> Post([FromBody] Reservation model)
         {
+            return await _reservationManager.Add(model);
         }
 
-        // PUT api/values/5
+        // PUT: api/Reservation/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<DataResult> Put(string id, [FromBody] Reservation model)
         {
+            return await _reservationManager.Edit(id, model);
         }
 
-        // DELETE api/values/5
+        // DELETE: api/Reservation/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<DataResult> Delete(string id)
         {
+            return await _reservationManager.Delete(id);
         }
     }
 }

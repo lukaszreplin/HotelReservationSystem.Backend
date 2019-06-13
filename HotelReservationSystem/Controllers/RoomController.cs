@@ -30,28 +30,30 @@ namespace HotelReservationSystem.Controllers
 
         // GET: api/Room/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<Room> Get(string id)
+        public async Task<DataResult<Room>> Get(string id)
         {
             return await _roomManager.GetRoom(id);
         }
 
         // POST: api/Room
         [HttpPost]
-        public async void Post([FromBody] Room model)
+        public async Task<DataResult> Post([FromBody] Room model)
         {
-            await _roomManager.Add(model);
+            return await _roomManager.Add(model);
         }
 
         // PUT: api/Room/5
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] Room model)
+        public async Task<DataResult> Put(string id, [FromBody] Room model)
         {
+            return await _roomManager.EditRoom(id, model);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public async Task<DataResult> Delete(string id)
         {
+            return await _roomManager.DeleteRoom(id);
         }
     }
 }

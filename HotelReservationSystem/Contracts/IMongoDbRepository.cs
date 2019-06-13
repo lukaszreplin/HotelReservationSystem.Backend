@@ -16,6 +16,10 @@ namespace HotelReservationSystem.Contracts
 
         Task<T> GetByCondition(FilterDefinition<T> filterDefinition);
 
+        Task Remove(FilterDefinition<T> filterDefinition);
 
+        Task Edit(FilterDefinition<T> filterDefinition, UpdateDefinition<T> updateDefinition);
+
+        Task<List<T>> Search(FilterDefinition<T> filterDefinition);
     }
 }

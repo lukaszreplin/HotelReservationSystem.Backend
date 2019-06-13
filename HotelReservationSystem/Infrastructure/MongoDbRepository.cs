@@ -51,5 +51,26 @@ namespace HotelReservationSystem.Infrastructure
             var collection = Database.GetCollection<T>(collectionName);
             return await collection.Find(filterDefinition).SingleOrDefaultAsync();
         }
+
+        public async Task Remove(FilterDefinition<T> filterDefinition)
+        {
+            var collectionName = GetCollectionName();
+            var collection = Database.GetCollection<T>(collectionName);
+            await collection.FindOneAndDeleteAsync(filterDefinition);
+        }
+
+        public async Task Edit(FilterDefinition<T> filterDefinition, UpdateDefinition<T> updateDefinition)
+        {
+            var collectionName = GetCollectionName();
+            var collection = Database.GetCollection<T>(collectionName);
+            await collection.FindOneAndUpdateAsync(filterDefinition, updateDefinition);
+        }
+
+        public async Task<List<T>> Search(FilterDefinition<T> filterDefinition)
+        {
+            var collectionName = GetCollectionName();
+            var collection = Database.GetCollection<T>(collectionName);
+            return await collection.Find(filterDefinition).ToListAsync();
+        }
     }
 }

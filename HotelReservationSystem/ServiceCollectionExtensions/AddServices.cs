@@ -16,6 +16,7 @@ namespace HotelReservationSystem.ServiceCollectionExtensions
         {
             services.AddScoped<IReservationManager, ReservationManager>();
             services.AddScoped<IRoomManager, RoomManager>();
+            services.AddScoped<IClientManager, ClientManager>();
         }
     }
 }

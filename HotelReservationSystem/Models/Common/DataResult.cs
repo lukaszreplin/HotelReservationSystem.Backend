@@ -30,7 +30,10 @@ namespace HotelReservationSystem.Models.Common
     {
         public static DataResult Success()
         {
-            return new DataResult();
+            return new DataResult()
+            {
+                Success = true
+            };
         }
 
         public static DataResult<T> Success<T>(T data)

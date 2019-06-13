@@ -11,8 +11,12 @@ namespace HotelReservationSystem.Contracts
     {
         Task<DataResult<List<Room>>> GetAll();
 
-        Task Add(Room model);
+        Task<DataResult> Add(Room model);
 
-        Task<Room> GetRoom(string id);
+        Task<DataResult<Room>> GetRoom(string id);
+
+        Task<DataResult> DeleteRoom(string id);
+
+        Task<DataResult> EditRoom(string id, Room model);
     }
 }

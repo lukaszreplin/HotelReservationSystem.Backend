@@ -15,6 +15,7 @@ namespace HotelReservationSystem.ServiceCollectionExtensions
         {
             services.AddScoped<IMongoDbRepository<Reservation>, MongoDbRepository<Reservation>>();
             services.AddScoped<IMongoDbRepository<Room>, MongoDbRepository<Room>>();
+            services.AddScoped<IMongoDbRepository<Client>, MongoDbRepository<Client>>();
         }
     }
 }
