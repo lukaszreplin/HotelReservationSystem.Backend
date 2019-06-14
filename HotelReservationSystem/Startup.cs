@@ -48,8 +48,17 @@ namespace HotelReservationSystem
                 c.SwaggerDoc("v1", new Info { Title = "Hotel Reservation System API", Version = "v1" });
             });
 
-            services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MongoConnectionString")))
+            {
+                Environment.SetEnvironmentVariable("MongoConnectionString", "mongodb://mo1356_hrs:Hotel123@mongo11.mydevil.net:27017/mo1356_hrs");
+            }
 
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DbName")))
+            {
+                Environment.SetEnvironmentVariable("DbName", "mo1356_hrs");
+            }
+
+            services.AddSingleton<IMongoClient>(new MongoClient(Environment.GetEnvironmentVariable("MongoConnectionString")));
             services.AddRepository();
 
             services.AddService();

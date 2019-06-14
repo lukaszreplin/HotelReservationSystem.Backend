@@ -16,7 +16,7 @@ namespace HotelReservationSystem.Infrastructure
         public IMongoDatabase Database { get; }
         public MongoDbRepository(IMongoClient client)
         {
-            Database = client.GetDatabase("hotelReservationDatabase");
+            Database = client.GetDatabase(Environment.GetEnvironmentVariable("DbName"));
         }
         public async Task InsertOne(T model)
         {
